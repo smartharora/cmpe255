@@ -36,6 +36,8 @@ if uploaded_file is not None:
     # # Can be used wherever a "file-like" object is accepted:
     df = pd.read_csv(uploaded_file)
     st.write(df)
+    
+    #. Preprocessing Data
     df = df.drop(['customerID'], axis=1)
     df['TotalCharges'] = pd.to_numeric(df.TotalCharges, errors='coerce')
     df.isnull().sum()
@@ -52,8 +54,10 @@ if uploaded_file is not None:
     def object_to_int(dataframe_series):
         if dataframe_series.dtype == 'object':
             dataframe_series = LabelEncoder().fit_transform(dataframe_series)
+            
         return dataframe_series
 
+# Choosing model from a list of models
 
 option = st.selectbox(
     'Choose to predict the model ...',
@@ -66,11 +70,6 @@ option = st.selectbox(
     ))
 
 st.write('Model selected:', option)
-
-
-# /Users/spartan/PycharmProjects/CMPE255/strem.py
-
-
 
 
 
@@ -107,7 +106,7 @@ if(st.button('Predict')):
 
     st.header('Result : ')
 
-    st.subheader('Percentage of Customer retains - ~'+ str(ar[ind-1])+'%')
+    st.subheader('Percentage of Customer retains - ~'+result+'%')
     plt.figure(figsize=(6, 6))
     labels = ["Churn: Yes", "Churn:No"]
     values = [one, zero]
